@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+<body>
+    <%- include('../partials/menu') -%>
+
+    <h1>Listado de Productos</h1>
+
+    <a href="/productos/create">Nuevo Producto</a>
+
+    <% productos.forEach(producto => { %>
+        <h2><a href="/productos/<%= producto.id %>"><%= producto.name %></a></h2>
+        <a href="/productos/<%= producto.id %>/edit">Editar</a>
+
+        <form class="form-delete" action="/productos/<%= producto.id %>/delete?_method=DELETE" method="post">
+            <button type="submit">Borrar</button>
+        </form>
+    <% }) %>
+
+    <script>
+        const forms = document.querySelectorAll('.form-delete')
+
+        forms.forEach(form => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault()
+
+                if (confirm('¿Esta seguro?')) {
+                    event.target.submit()
+                }
+            })
+        })
+    </script>
+</body>
+</html>

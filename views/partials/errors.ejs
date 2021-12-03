@@ -1,0 +1,7 @@
+<% if (typeof errors != 'undefined') { %> 
+    <ul>
+    <% errors.forEach((error) => { %>
+        <li><strong><%= error.param %></strong>: <%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>

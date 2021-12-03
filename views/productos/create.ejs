@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+<body>
+    <%- include('../partials/menu') -%>
+
+    <h1>Nuevo producto</h1>
+
+    <%- include('../partials/errors') -%>
+
+    <form action="/productos/store" method="post">
+        <div>
+            <label for="nombre">Nombre: </label>
+            <input type="text" name="name" id="nombre" value="<%= values.name %>">
+        </div>
+        <div>
+            <label for="descripcion">Descripcion: </label>
+            <textarea name="descripcion" id="descripcion" cols="30" rows="10"><%= values.descripcion %></textarea>
+        </div>
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
