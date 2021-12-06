@@ -1,39 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
-</head>
-<body>
-    <%- include('../partials/menu') -%>
+<%- include('../partials/header.ejs') -%>
 
-    <h1>Listado de Productos</h1>
+<div class="row">
+    <div class="col-8 offset-2">
+        <div class="row">
+            <div class="col">
+                <h1>Listado de Productos</h1>
+            </div>
+            <div class="col align-self-center text-end">
+                <a href="/productos/create" class="btn btn-success">Nuevo Producto</a>
+            </div>
+        </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% productos.forEach(producto=> { %>
+                    <tr>
+                        <th scope="row">
+                            <%= producto.id %>
+                        </th>
+                        <td>
+                            <%= producto.name %>
+                        </td>
+                        <td class="d-flex justify-content-end gap-2">
+                            <a href="/productos/<%= producto.id %>/edit" class="btn btn-primary">Editar</a>
+                            <form class="form-delete" action="/productos/<%= producto.id %>/delete?_method=DELETE"
+                                method="post">
+                                <button type="submit" class="btn btn-danger">Borrar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <a href="/productos/create">Nuevo Producto</a>
+<script>
+    const forms = document.querySelectorAll('.form-delete')
 
-    <% productos.forEach(producto => { %>
-        <h2><a href="/productos/<%= producto.id %>"><%= producto.name %></a></h2>
-        <a href="/productos/<%= producto.id %>/edit">Editar</a>
+    forms.forEach(form => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
 
-        <form class="form-delete" action="/productos/<%= producto.id %>/delete?_method=DELETE" method="post">
-            <button type="submit">Borrar</button>
-        </form>
-    <% }) %>
-
-    <script>
-        const forms = document.querySelectorAll('.form-delete')
-
-        forms.forEach(form => {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault()
-
-                if (confirm('¿Esta seguro?')) {
-                    event.target.submit()
-                }
-            })
+            if (confirm('¿Esta seguro?')) {
+                event.target.submit()
+            }
         })
-    </script>
-</body>
-</html>
+    })
+</script>
+
+<%- include('../partials/footer.ejs') -%>

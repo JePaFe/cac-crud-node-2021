@@ -24,20 +24,24 @@ app.use(session({
 }))
 
 const isLogin = (req, res, next) => {
-    if (!req.session.user_id 
+    if (req.url.indexOf('api') > 0) {
+        return next()
+    }
+
+    if (!req.session.user_id
         && req.url != '/login' 
         && req.url != '/register' 
         && req.url != '/contacto') {
-        res.redirect('/login')
+        return res.redirect('/login')
     }
 
     next()
 }
 
-// app.use(isLogin)
+app.use(isLogin)
 
-app.get('/', isLogin, (req, res) => {
-    console.log(req.session)
+app.get('/', (req, res) => {
+    // console.log(req.session)
     res.render('index')
 })
 

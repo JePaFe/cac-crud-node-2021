@@ -1,4 +1,4 @@
-# Codo a Codo #2153 CRUD en Node.js
+# Codo a Codo CRUD en Node.js
 
 ## Para Instalar las dependencias
 
